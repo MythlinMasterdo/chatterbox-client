@@ -1,6 +1,6 @@
 // YOUR CODE HERE:
 var app = {
-  server: "https://api.parse.com/1/classes/messages?order=-createdAt&limit=40",
+  server: "https://api.parse.com/1/classes/messages",
   username: (window.location.search).split("=")[1],
   init: function() {
 
@@ -22,16 +22,31 @@ var app = {
     });
   },
 
-  fetch: function() {
+  fetch: function(parameter) {
     var context = this;
+    var filter = false;
+    if (parameter) {
+      urlEncoder = "&limit=1000"; 
+      filter = true;
+    } 
+    else {
+      urlEncoder = "&limit=40";
+    }
     $.ajax({
-      url: this.server,
+      url: this.server + "?order=-createdAt" + urlEncoder,
       type: "GET",
       success: function(data) {
         console.log(data);
         var dataArray = data.results;
         for (var i = 0; i < dataArray.length; i++) {
-          context.renderMessage(dataArray[i]);
+          if(filter) {
+            if (dataArray[i].roomname === parameter) {
+              context.renderMessage(dataArray[i]);
+            }
+          }
+          else {
+            context.renderMessage(dataArray[i]);
+          }
         }
       },
       error: function(error) {
@@ -45,7 +60,7 @@ var app = {
   },
 
   renderMessage: function(message) {
-    $("#chats").append("<div>" + message.username + " " + protection(message.text) + "</div>");
+    $("#chats").append("<div>" + this.protectXSS(message.username) + " " + this.protectXSS(message.text) + "</div>");
   },
 
   renderRoom: function(roomName) {
@@ -63,32 +78,39 @@ var app = {
     var data = {
       username: this.username,
       text: message,
-      roomname: 'lobby'
+      roomname: $("#roomSelect").val()
     };
 
     this.send(data);
-  }
+  },
 
-};
-
-var __entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': '&quot;',
-    "'": '&#39;',
-    "/": '&#x2F;'
-};
-
-var protection = function(text) {
+  protectXSS: function(text) {
+    var __entityMap = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': '&quot;',
+      "'": '&#39;',
+      "/": '&#x2F;'
+    };
     return String(text).replace(/[&<>"'\/]/g, function (s) {  
-        return __entityMap[s];
+      return __entityMap[s];
     });
-}
+  },
 
+  roomChange: function() {
+    this.clearMessages();
+    var room = $( "#roomSelect" ).val();
+    this.fetch(room);
+  }
+};
 
 
 
 $( document ).ready(function() {
-    app.fetch();
+  app.fetch();
+
+  $( "#roomSelect" ).change(function() {
+    app.roomChange();
+  });
 });
