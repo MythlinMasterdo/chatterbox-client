@@ -25,9 +25,20 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <div id="roomSelect"></div>
-      <input class="messageInput" type="text" placeholder="Write your message here"/>
-      <button class="submitMessage" onClick="app.handleSubmit()">Submit</button>
+      <div class="loobyContainer">
+        <select id="roomSelect">
+          <option>Lobby</option>
+          <option>Game</option>
+          <option>HangOut</option>
+          <option>Random</option>
+        </select>
+        <input class="roomInput" type="text" placeholder="Room Name"/>
+        <button class="createRoom" onClick="app.renderRoom($('.roomInput').val())">Create</button>
+      </div>
+      <div class="messageContainer">
+        <input class="messageInput" type="text" placeholder="Write your message here"/>
+        <button class="submitMessage" onClick="app.handleSubmit()">Submit</button>
+      </div>
       <!-- Your HTML goes here! -->
     </div>
     <div id="chats"></div>

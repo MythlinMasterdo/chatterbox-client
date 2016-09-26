@@ -45,11 +45,12 @@ var app = {
   },
 
   renderMessage: function(message) {
-    $("#chats").append("<div>" + message.text + "</div>");
+    $("#chats").append("<div>" + message.username + " " + protection(message.text) + "</div>");
   },
 
   renderRoom: function(roomName) {
-    $("#roomSelect").append("<div>" + roomName + "</div>");
+    //var room = $("#roomSelect").val();
+    $("#roomSelect").append("<option>" + roomName + "</option>");
   },
 
   handleUsernameClick: function() {
@@ -69,6 +70,24 @@ var app = {
   }
 
 };
+
+var __entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+};
+
+var protection = function(text) {
+    return String(text).replace(/[&<>"'\/]/g, function (s) {  
+        return __entityMap[s];
+    });
+}
+
+
+
 
 $( document ).ready(function() {
     app.fetch();
