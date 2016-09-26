@@ -1,6 +1,6 @@
 // YOUR CODE HERE:
 var app = {
-  server: "https://api.parse.com/1/classes/messages",
+  server: "https://api.parse.com/1/classes/messages?order=-createdAt&limit=40",
   username: (window.location.search).split("=")[1],
   init: function() {
 
@@ -28,6 +28,7 @@ var app = {
       url: this.server,
       type: "GET",
       success: function(data) {
+        console.log(data);
         var dataArray = data.results;
         for (var i = 0; i < dataArray.length; i++) {
           context.renderMessage(dataArray[i]);
