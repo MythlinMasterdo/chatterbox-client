@@ -2,19 +2,21 @@
 var app = {
   server: "https://api.parse.com/1/classes/messages",
   username: (window.location.search).split("=")[1],
+  friendList: [],
   init: function() {
 
   },
 
   send: function(message) {
     var messageConvert = JSON.stringify(message);
-
+    var context = this;
     $.ajax({
       url: this.server,
       type: "POST",
       data: messageConvert,
       success: function(data) {
-        console.log(data);
+        context.fetch();
+        //console.log(data);
       },
       error: function(error) {
         console.error(error);
@@ -36,7 +38,7 @@ var app = {
       url: this.server + "?order=-createdAt" + urlEncoder,
       type: "GET",
       success: function(data) {
-        console.log(data);
+        context.clearMessages();
         var dataArray = data.results;
         for (var i = 0; i < dataArray.length; i++) {
           if(filter) {
@@ -48,6 +50,7 @@ var app = {
             context.renderMessage(dataArray[i]);
           }
         }
+        context.initializeFriends();
       },
       error: function(error) {
         console.error(error);
@@ -60,7 +63,7 @@ var app = {
   },
 
   renderMessage: function(message) {
-    $("#chats").append("<div>" + this.protectXSS(message.username) + " " + this.protectXSS(message.text) + "</div>");
+    $("#chats").append("<div class='singleMessage'><div class='username " + this.protectXSS(message.username) + "'>" + this.protectXSS(message.username) + "</div><div class='textMessage'>" + this.protectXSS(message.text) + "</div></div>");
   },
 
   renderRoom: function(roomName) {
@@ -68,8 +71,8 @@ var app = {
     $("#roomSelect").append("<option>" + roomName + "</option>");
   },
 
-  handleUsernameClick: function() {
-
+  handleUsernameClick: function(className) {
+    $().css("color","red");
   },
 
   handleSubmit: function() {
@@ -99,9 +102,18 @@ var app = {
   },
 
   roomChange: function() {
-    this.clearMessages();
+    this.clearMessages(); 
     var room = $( "#roomSelect" ).val();
     this.fetch(room);
+  },
+
+  initializeFriends: function() {
+    var arr = this.friendList;
+    for (var i = 0; i < arr.length; i++) {
+      $("." + arr[i]).css("color","red");
+      $("." + arr[i]).css("font-weight","bold");
+    }
+    
   }
 };
 
@@ -109,8 +121,18 @@ var app = {
 
 $( document ).ready(function() {
   app.fetch();
+  setInterval(function() {
+    app.fetch();
+  },4000);
 
   $( "#roomSelect" ).change(function() {
     app.roomChange();
   });
+
+  $( "#chats" ).delegate('.username', 'click',  function() {
+    $("." + $(this).text()).css("color","red");
+    $("." + $(this).text()).css("font-weight","bold");
+    app.friendList.push($(this).text());
+  });
+
 });
