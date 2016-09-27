@@ -1,5 +1,6 @@
 body {
-    background: #eee;
+    background-image: url("http://www.intrawallpaper.com/static/images/White-Background-9B1.jpg");
+    background-size: cover;  
     text-align: center;
     padding: 0 25px;
     font-family: arial, sans-serif;
@@ -13,6 +14,12 @@ body {
     padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
+}
+#chats {
+    opacity: 0.85;
+}
+#main {
+    text-align: center;
 }
 
 #main h1 {
@@ -90,6 +97,7 @@ form input[type=text] {
 
 .singleMessage {
     border: 1px solid black;
+    border-radius: 8px;
     padding: 10px;
     margin-bottom: 5px;
 }
@@ -101,4 +109,19 @@ form input[type=text] {
 
 .textMessage {
     font-size: 15px;
+}
+.messageInput {
+    width: 250px;
+}
+.roomInput {
+    width: 168px;
+}
+.roomContainer {
+    margin-bottom: 20px;
+}
+.singleMessage.white {
+    background-color: white;
+}
+.singleMessage.gray {
+    background-color: #ddd;
 }

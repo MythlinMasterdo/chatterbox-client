@@ -3,6 +3,7 @@ var app = {
   server: "https://api.parse.com/1/classes/messages",
   username: (window.location.search).split("=")[1],
   friendList: [],
+  lastUsed: "white",
   init: function() {
 
   },
@@ -63,7 +64,12 @@ var app = {
   },
 
   renderMessage: function(message) {
-    $("#chats").append("<div class='singleMessage'><div class='username " + this.protectXSS(message.username) + "'>" + this.protectXSS(message.username) + "</div><div class='textMessage'>" + this.protectXSS(message.text) + "</div></div>");
+    if(this.lastUsed === "gray") {
+      this.lastUsed = "white";
+    } else {
+      this.lastUsed = "gray";
+    }
+    $("#chats").append("<div class='singleMessage " + this.lastUsed + "'><div class='username " + this.protectXSS(message.username) + "'>" + this.protectXSS(message.username) + "</div><div class='textMessage'>" + this.protectXSS(message.text) + "</div></div>");
   },
 
   renderRoom: function(roomName) {
