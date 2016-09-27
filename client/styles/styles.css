@@ -1,20 +1,24 @@
+@font-face {
+    font-family:hero;
+    src: url("../Fonts/herofonts_neoteric/NEOTERIC.ttf");
+}
+@font-face {
+    font-family: quarca;
+    src: url("../Fonts/quarca/QuarcaExtRegular.otf");
+}
+
 body {
-    background-image: url("../images/background1.jpg");
-    background-size: cover;  
+    background-image: url("../images/background1.jpg");  
     text-align: center;
     padding: 0 25px;
-    font-family: arial, sans-serif;
+    background-repeat: no-repeat;
+    
 }
 
 #main, #chats {
     width: 38%;
     /* margin: auto; */
     text-align: left;
-    
-    padding: 50px 60px;
-    /* border: solid #ddd; */
-    /* border-width: 0 1px 1px 1px; */
-    /* height: 242px; */
     float: left;
 }
 #chats {
@@ -23,11 +27,18 @@ body {
     background: rgba(255, 255, 255, 0.68);
     border-radius: 12px;
     border: 1px solid white;
+    font-family: quarca;
+    padding: 50px 60px;
 }
 #main {
     text-align: center;
     border: 1px solid white;
     border-radius: 12px;
+    font-family: hero;
+    height: 475px;
+    padding-top: 240px;
+    padding-left: 60px;
+    padding-right: 60px;
 }
 
 #main h1 {
@@ -119,10 +130,20 @@ form input[type=text] {
     font-size: 15px;
 }
 .messageInput {
-    width: 250px;
+    background-color: transparent;
+    border-radius: 10px;
+    height: 30px;
+    width: 280px;
+    font-family: quarca;
+    text-align: center;
 }
 .roomInput {
     width: 168px;
+    background-color: transparent;
+    border-radius: 9px;
+    height: 21px;
+    font-family: quarca;
+    text-align: center;
 }
 .roomContainer {
     margin-bottom: 20px;
@@ -133,4 +154,64 @@ form input[type=text] {
 .singleMessage.gray {
     background-color: #ddd;
     width: 100%;
+}
+
+.submitMessage, .createRoom {
+  -moz-box-shadow: 0px 10px 14px -7px #9fb4f2;
+  -webkit-box-shadow: 0px 10px 14px -7px #9fb4f2;
+  box-shadow: 0px 10px 14px -7px #9fb4f2;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #7892c2), color-stop(1, #9db6d4));
+  background:-moz-linear-gradient(top, #7892c2 5%, #9db6d4 100%);
+  background:-webkit-linear-gradient(top, #7892c2 5%, #9db6d4 100%);
+  background:-o-linear-gradient(top, #7892c2 5%, #9db6d4 100%);
+  background:-ms-linear-gradient(top, #7892c2 5%, #9db6d4 100%);
+  background:linear-gradient(to bottom, #7892c2 5%, #9db6d4 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7892c2', endColorstr='#9db6d4',GradientType=0);
+  background-color:#7892c2;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+  border-radius:8px;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:quarca;
+  font-size:10px;
+  font-weight:bold;
+  padding: 5px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #283966;
+}
+.submitMessage, .createRoom:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #9db6d4), color-stop(1, #7892c2));
+    background:-moz-linear-gradient(top, #9db6d4 5%, #7892c2 100%);
+    background:-webkit-linear-gradient(top, #9db6d4 5%, #7892c2 100%);
+    background:-o-linear-gradient(top, #9db6d4 5%, #7892c2 100%);
+    background:-ms-linear-gradient(top, #9db6d4 5%, #7892c2 100%);
+    background:linear-gradient(to bottom, #9db6d4 5%, #7892c2 100%);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9db6d4', endColorstr='#7892c2',GradientType=0);
+    background-color:#9db6d4;
+}
+.createRoom:active {
+    position:relative;
+    top:1px;
+}
+
+
+#roomSelect {
+    border-radius: 8px;
+    background-color: transparent;
+    color: white;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: white;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: white;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: white;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: white;
 }

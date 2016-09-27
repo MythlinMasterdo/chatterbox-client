@@ -52,6 +52,8 @@ var app = {
           }
         }
         context.initializeFriends();
+        $("#chats").css("display", "none");
+        $("#chats").fadeIn("slow");
       },
       error: function(error) {
         console.error(error);
@@ -70,6 +72,7 @@ var app = {
       this.lastUsed = "gray";
     }
     $("#chats").append("<div class='singleMessage " + this.lastUsed + "'><div class='username " + this.protectXSS(message.username) + "'>" + this.protectXSS(message.username) + "</div><div class='textMessage'>" + this.protectXSS(message.text) + "</div></div>");
+    
   },
 
   renderRoom: function(roomName) {
