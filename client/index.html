@@ -4,9 +4,13 @@
     <meta charset="utf-8">
     <title>Chatterbox</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="bower_components/MDBootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/MDBootstrap/css/mdb.css">
 
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/MDBootstrap/js/bootstrap.js"></script>
+    <script src="bower_components/MDBootstrap/js/mdb.js"></script>
     <script>
       // YOU DO NOT NEED TO EDIT THIS CODE
       if (!/(&|\?)username=/.test(window.location.search)) {
@@ -32,6 +36,7 @@
           <option>HangOut</option>
           <option>Random</option>
         </select>
+      
         <input class="roomInput" type="text" placeholder="Room Name"/>
         <button class="createRoom" onClick="app.renderRoom($('.roomInput').val())">Create</button>
       </div>
