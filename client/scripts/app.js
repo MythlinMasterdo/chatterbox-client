@@ -4,6 +4,8 @@ var app = {
   username: (window.location.search).split("=")[1],
   friendList: [],
   lastUsed: "white",
+  roomArray:[],
+  room: "",
   init: function() {
 
   },
@@ -16,7 +18,7 @@ var app = {
       type: "POST",
       data: messageConvert,
       success: function(data) {
-        context.fetch();
+        context.fetch(context.room);
         //console.log(data);
       },
       error: function(error) {
@@ -29,31 +31,33 @@ var app = {
     var context = this;
     var filter = false;
     if (parameter) {
-      urlEncoder = "&limit=1000"; 
+      urlEncoder = '&limit=40&where={"roomname":"' + parameter + '"}'; 
       filter = true;
     } 
     else {
-      urlEncoder = "&limit=40";
+      urlEncoder = "&limit=300";
     }
     $.ajax({
       url: this.server + "?order=-createdAt" + urlEncoder,
       type: "GET",
       success: function(data) {
         context.clearMessages();
+        context.roomArray = [];
         var dataArray = data.results;
         for (var i = 0; i < dataArray.length; i++) {
-          if(filter) {
-            if (dataArray[i].roomname === parameter) {
-              context.renderMessage(dataArray[i]);
-            }
-          }
-          else {
-            context.renderMessage(dataArray[i]);
+          context.renderMessage(dataArray[i]);
+          if (!context.roomArray.includes(dataArray[i].roomname) && dataArray[i].roomname !== " ") {
+            context.roomArray.push(dataArray[i].roomname);
           }
         }
+        context.roomArray.sort();
+        for (var j = 0; j < context.roomArray.length; j++) {
+          context.renderRoom(context.roomArray[j], true);
+        }
+
         context.initializeFriends();
-        $("#chats").css("display", "none");
-        $("#chats").fadeIn("slow");
+        // $("#chats").css("display", "none");
+        // $("#chats").fadeIn("slow");
       },
       error: function(error) {
         console.error(error);
@@ -75,9 +79,19 @@ var app = {
     
   },
 
-  renderRoom: function(roomName) {
+  renderRoom: function(roomName, newList) {
     //var room = $("#roomSelect").val();
-    $("#roomSelect").append("<option>" + roomName + "</option>");
+    if (newList) {
+      $("#roomSelect").append("<option>" + roomName + "</option>");
+    }
+    else {
+      if (!this.roomArray.includes(roomName)) {
+        $("#roomSelect").append("<option>" + roomName + "</option>");
+      }
+      else {
+        alert("Room Already Exist");
+      }
+    }
   },
 
   handleUsernameClick: function(className) {
@@ -86,7 +100,7 @@ var app = {
 
   handleSubmit: function() {
     var message = $('.messageInput').val();
-    
+    console.log($("#roomSelect").val()); 
     var data = {
       username: this.username,
       text: message,
@@ -113,6 +127,7 @@ var app = {
   roomChange: function() {
     this.clearMessages(); 
     var room = $( "#roomSelect" ).val();
+    this.room = room;
     this.fetch(room);
   },
 
@@ -130,9 +145,9 @@ var app = {
 
 $( document ).ready(function() {
   app.fetch();
-  setInterval(function() {
-    app.fetch();
-  },4000);
+  // setInterval(function() {
+  //   app.fetch();
+  // },4000);
 
   $( "#roomSelect" ).change(function() {
     app.roomChange();

@@ -14,7 +14,8 @@
     <script>
       // YOU DO NOT NEED TO EDIT THIS CODE
       if (!/(&|\?)username=/.test(window.location.search)) {
-        var newSearch = window.location.search;
+        var newSearch = window.location.
+        earch;
         if (newSearch !== '' & newSearch !== '?') {
           newSearch += '&';
         }
@@ -31,10 +32,7 @@
       <h1>Chatterbox</h1>
       <div class="roomContainer">
         <select id="roomSelect">
-          <option value="">All</option>
-          <option>Game</option>
-          <option>HangOut</option>
-          <option>Random</option>
+          <option value="">All Messages</option>
         </select>
       
         <input class="roomInput" type="text" placeholder="Room Name"/>
@@ -46,6 +44,7 @@
       </div>
       <!-- Your HTML goes here! -->
     </div>
-    <div id="chats"></div>
+    <div id="chats">
+    </div>
   </body>
 </html>
