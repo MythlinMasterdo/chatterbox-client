@@ -127,9 +127,9 @@ var app = {
 
 $( document ).ready(function() {
   app.fetch();
-  setInterval(function() {
-    app.fetch();
-  },4000);
+  // setInterval(function() {
+  //   app.fetch();
+  // },4000);
 
   $( "#roomSelect" ).change(function() {
     app.roomChange();

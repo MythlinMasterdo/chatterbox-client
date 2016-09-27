@@ -1,5 +1,5 @@
 body {
-    background-image: url("http://www.intrawallpaper.com/static/images/White-Background-9B1.jpg");
+    background-image: url("../images/background1.jpg");
     background-size: cover;  
     text-align: center;
     padding: 0 25px;
@@ -7,19 +7,27 @@ body {
 }
 
 #main, #chats {
-    width: 500px;
-    margin: auto;
+    width: 38%;
+    /* margin: auto; */
     text-align: left;
-    background: white;
+    
     padding: 50px 60px;
-    border: solid #ddd;
-    border-width: 0 1px 1px 1px;
+    /* border: solid #ddd; */
+    /* border-width: 0 1px 1px 1px; */
+    /* height: 242px; */
+    float: left;
 }
 #chats {
-    opacity: 0.85;
+    height: 614px;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.68);
+    border-radius: 12px;
+    border: 1px solid white;
 }
 #main {
     text-align: center;
+    border: 1px solid white;
+    border-radius: 12px;
 }
 
 #main h1 {
@@ -96,10 +104,10 @@ form input[type=text] {
 }
 
 .singleMessage {
-    border: 1px solid black;
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 5px;
+    opacity: 1 !important;
 }
 
 .username {
@@ -124,4 +132,5 @@ form input[type=text] {
 }
 .singleMessage.gray {
     background-color: #ddd;
+    width: 100%;
 }
